@@ -1,0 +1,1 @@
+g++ -I <path al directorio de boost> <NombredelPrograma>.cpp -o <output>
