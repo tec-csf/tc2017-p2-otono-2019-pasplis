@@ -48,7 +48,7 @@ typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
 class dfsBOOST : public boost::default_dfs_visitor{
   public:
 
-    void discover_vertex(vertex_Boost v, const gBoost) const{
+    void discover_vertex(vertex_Boost v, const gBoost& graf) const{
       std::cerr << v << "";
 
       return;
@@ -58,7 +58,7 @@ class dfsBOOST : public boost::default_dfs_visitor{
 
 class bfsBOOSt : public boost::default_bfs_visitor{
 public:
-    void discover_vertex(vertex_Boost v, const gBoost &graf) const{
+    void discover_vertex(vertex_Boost v, const gBoost& graf) const{
         std::cerr << v << " ";
         return;
     }
@@ -106,7 +106,25 @@ class GrafoGral{
 
     gBoost hacerVertice(gBoost g, int v){
 
+        auto start = high_resolution_clock::now();
+
         //cout << "Hacer Vertice funciona" << endl;
+        vertex_Boost novo;
+        novo = add_vertex(g);
+
+        cout << "Vertice " << v << " ha sido insertado \n" << endl;
+
+        auto stop = high_resolution_clock::now();
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop-start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
 
@@ -114,28 +132,81 @@ class GrafoGral{
 
     gBoost hacerArista(gBoost g, int principio, int dest, int peso){
 
-        cout << "Hacer Arista funciona" << endl;
+        auto start = high_resolution_clock::now();
+
+        //cout << "Hacer Arista funciona" << endl;
+        add_edge(principio, dest, peso, g);
+
+        auto stop = high_resolution_clock::now();
+
+        cout << "Se añadió la arista " << principio << " exitosamente\n" << endl;
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
 
     gBoost delVertice(gBoost g, int v){
         
-        cout << "Borrar Vertices funciona" << endl;
+        auto start = high_resolution_clock::now();
+
+        //cout << "Borrar Vertices funciona" << endl;
+        clear_vertex(v, g);
+        remove_vertex(v, g);
+
+        auto stop = high_resolution_clock::now();
+
+        cout << "Se removió el vertice " << v << " exitosamente\n" << endl;
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;        
     }
 
     gBoost delArista(gBoost g, int principio, int dest){
 
-        cout << "Borrar Aristas funciona" << endl;
+        //cout << "Borrar Aristas funciona" << endl;
+
+        auto start = high_resolution_clock::now();
+
+        remove_edge(principio, dest, g);
+
+        cout << "Se removió la arista: " << principio << " exitosamente\n" << endl;
+
+        auto stop = high_resolution_clock::now();
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
 
     gBoost DFS(gBoost g){
 
-        cout << "DFS funciona" << endl;
+        //cout << "DFS funciona" << endl;
 
         return g;
     }
@@ -184,8 +255,6 @@ int main(){
     gBoost graf = inicio.creacionGrafo();
 
     int opcion;
-    
-    auto start = high_resolution_clock::now();
 
     while(1){
 
@@ -268,15 +337,6 @@ int main(){
             break;
         }
 
-        auto stop = high_resolution_clock::now();
-
-        auto durationSeg= duration_cast<seconds>(stop - start);
-        auto durationMilli = duration_cast<milliseconds>(stop - start);
-
-        cout << "Le tomo " << durationSeg.count() << " segundos\n";
-        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
-
-        cout << "\n";   
     }
 
     return 0;
