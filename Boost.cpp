@@ -276,7 +276,27 @@ class GrafoGral{
 
     gBoost Kruskal(gBoost g){
 
-        cout << "Kruskal funciona" << endl;
+        //cout << "Kruskal funciona" << endl;
+        property_map<gBoost, edge_weight_t>::type weight = get(edge_weight, g);
+        std::vector<EDGE> arbolKruskal;
+
+        auto start = high_resolution_clock::now();
+
+        kruskal_minimum_spanning_tree(g, std::back_inserter(arbolKruskal));
+
+        auto stop = high_resolution_clock::now();
+
+        
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
