@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <tuple>
 #include <vector>
+#include "Boost.hpp"
 
 #include <boost/config.hpp>
 #include <boost/graph/adjacency_list.hpp>
@@ -44,25 +45,6 @@ typedef graph_traits<gBoost>::edge_descriptor EDGE;
 typedef boost::exterior_vertex_property<gBoost, int> DistanceProperty;
 typedef DistanceProperty::matrix_type DistanceMatrix;
 typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
-
-class dfsBOOST : public boost::default_dfs_visitor{
-  public:
-
-    void discover_vertex(vertex_Boost v, const gBoost& graf) const{
-      std::cerr << v << "";
-
-      return;
-    }
-
-};
-
-class bfsBOOST : public boost::default_bfs_visitor{
-public:
-    void discover_vertex(vertex_Boost v, const gBoost& graf) const{
-        std::cerr << v << " ";
-        return;
-    }
-};
 
 class GrafoGral{ 
 
