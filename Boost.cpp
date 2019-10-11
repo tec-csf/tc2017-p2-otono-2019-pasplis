@@ -56,7 +56,7 @@ class dfsBOOST : public boost::default_dfs_visitor{
 
 };
 
-class bfsBOOSt : public boost::default_bfs_visitor{
+class bfsBOOST : public boost::default_bfs_visitor{
 public:
     void discover_vertex(vertex_Boost v, const gBoost& graf) const{
         std::cerr << v << " ";
@@ -187,9 +187,9 @@ class GrafoGral{
 
         remove_edge(principio, dest, g);
 
-        cout << "Se removió la arista: " << principio << " exitosamente\n" << endl;
-
         auto stop = high_resolution_clock::now();
+        
+        cout << "Se removió la arista: " << principio << " exitosamente\n" << endl;
 
         auto durationSeg = duration_cast<seconds>(stop - start);
         auto durationMilli = duration_cast<milliseconds>(stop - start);
@@ -207,13 +207,51 @@ class GrafoGral{
     gBoost DFS(gBoost g){
 
         //cout << "DFS funciona" << endl;
+        dfsBOOST dB;
+
+        auto start = high_resolution_clock::now();
+
+        depth_first_search(g, visitor(dB));
+
+        auto stop = high_resolution_clock::now();
+
+        cout << "\n";
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
 
     gBoost BFS(gBoost g, int principio){
 
-        cout << "BFS funciona" << endl;
+        //cout << "BFS funciona" << endl;
+        bfsBOOST bfB;
+
+        auto start = high_resolution_clock::now();
+
+        breadth_first_search(g, principio, visitor(bfB));
+
+        auto stop = high_resolution_clock::now();
+
+        cout << "\n";
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
