@@ -38,7 +38,7 @@ using namespace std::chrono;
 
 typedef property<vertex_distance_t, int> Vdistance;
 typedef property<edge_weight_t, int> EdgeWeight;
-typedef adjacency_list <vecS, vecS, bidirectionalS, Vdistance, EdgeWeight> gBoost;
+typedef adjacency_list<vecS, vecS, bidirectionalS, Vdistance, EdgeWeight> gBoost;
 typedef property_map<gBoost, edge_weight_t>::type EdgeWeights;
 typedef boost::graph_traits<gBoost>::vertex_descriptor vertex_Boost;
 typedef graph_traits<gBoost>::edge_descriptor EDGE;
@@ -240,7 +240,36 @@ class GrafoGral{
 
     gBoost Prim(gBoost g){
 
-        cout << "Prim funciona" << endl;
+        //cout << "Prim funciona" << endl;
+        std::vector<vertex_Boost> vertice(num_vertices(g));
+
+        property_map<gBoost, vertex_index_t>::type mapaVertices = get(vertex_index, g);
+
+        property_map<gBoost, vertex_distance_t>::type distanciaVertice = get(vertex_distance, g);
+
+        property_map<gBoost, edge_weight_t>::type pesoEsquema = get(edge_weight, g);
+
+        auto start = high_resolution_clock::now();
+
+        prim_minimum_spanning_tree(g, *vertices(g).first, &vertice[0], distanciaVertice, pesoEsquema,mapaVertices, default_dijkstra_visitor());
+
+        for (int i = 1; i != vertice.size(); ++i)
+            if (vertice[i] != i)
+                cout << "Nodo padre: " << i << " es igual a " << vertice[i] << endl;
+            else
+                cout << "Nodo padre " << i << "\nNo hay nodo padre" << endl;
+        
+        auto stop = high_resolution_clock::now();
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\n";
 
         return g;
     }
