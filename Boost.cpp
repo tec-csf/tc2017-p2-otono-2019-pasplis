@@ -48,7 +48,7 @@ typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
 class GrafoGral{ 
 
     public:
-        std::vector<std::string> name = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
+        std::vector<std::string> grafString = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
 
     gBoost creacionGrafo(){
 
@@ -286,7 +286,7 @@ class GrafoGral{
         auto stop = high_resolution_clock::now();
 
         cout << "Resultado, Kruskal: " << endl;
-        for(std::vector<EDGE>::iterator krus = arbolKruskal.begin(); krus != arbolKruskal.end(); krus++){
+        for(std::vector<EDGE>::iterator krus = arbolKruskal.begin(); krus != arbolKruskal.end(); ++krus){
 
             cout << "De " << source(*krus, g) << " a " << target(*krus, g) << "\nTiene un peso de: " << weight[*krus] << "\n" << endl; 
         }
@@ -308,11 +308,36 @@ class GrafoGral{
 
         //cout << "Dijkstra funciona" << endl;
 
+        std::vector<vertex_Boost> dij(num_vertices(g));
+        std::vector<int> kst(num_vertices(g));
+
+        vertex_Boost tra = vertex(1, g);
+
+        property_map<gBoost, vertex_index_t>::type mapa = get(vertex_index, g);
+
+        property_map<gBoost, edge_weight_t>::type pesos = get(edge_weight, g);
+
         auto start = high_resolution_clock::now();
 
-
+        dijkstra_shortest_paths(g, tra, &dij[0], &kst[0], pesos, mapa, std::less<int>(), closed_plus<int>(), (std::numeric_limits<int>::max)(), 0, default_dijkstra_visitor());
 
         auto stop = high_resolution_clock::now();
+
+        graph_traits <gBoost>::vertex_iterator origen, destino;
+
+        for(tie(origen, destino) = vertices(g); origen != destino; ++origen){
+            
+            cout << "Distancia de: " << grafString[*origen] << " es " << kst[*origen] << " el padre siendo " << grafString[dij[*origen]] << "\n" <<endl;
+        
+        }
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
 
         return g;
     }
@@ -385,24 +410,32 @@ int main(){
             /*PRIM*/
             inicio.Prim(graf);
 
+            //Algoritmo tipo ávido
+            //Complejidad de O()
             break;
 
         case 8:
             /*Kruskal*/
             inicio.Kruskal(graf);
 
+            //Algoritmo tipo
+            //Complejidad de O()
             break;
         
         case 9:
             /*Dijkstra*/
             inicio.Dijkstra(graf);
 
+            //Algoritmo tipo ávido
+            //Complejidad de O()
             break;
         
         case 10:
             /*Floyd-Warshall*/
             inicio.FW(graf);
 
+            //Algoritmo tipo dinámico
+            //Complejidad de O(v^3)
             break;
 
         case 11:
@@ -411,7 +444,7 @@ int main(){
             break;
 
         default:
-            cout << "Escoga una opción disponible\n" << endl;
+            cout << "Escoja una opción aceptable\n" << endl;
             break;
         }
 
