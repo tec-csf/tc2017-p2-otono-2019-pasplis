@@ -9,7 +9,6 @@
  */
 
 #include <algorithm>
-#include <bits/stdc++.h>
 #include <chrono>
 #include <ctime>
 #include <fstream>
@@ -286,7 +285,11 @@ class GrafoGral{
 
         auto stop = high_resolution_clock::now();
 
-        
+        cout << "Resultado, Kruskal: " << endl;
+        for(std::vector<EDGE>::iterator krus = arbolKruskal.begin(); krus != arbolKruskal.end(); krus++){
+
+            cout << "De " << source(*krus, g) << " a " << target(*krus, g) << "\nTiene un peso de: " << weight[*krus] << "\n" << endl; 
+        }
 
         auto durationSeg = duration_cast<seconds>(stop - start);
         auto durationMilli = duration_cast<milliseconds>(stop - start);
@@ -303,7 +306,13 @@ class GrafoGral{
 
     gBoost Dijkstra(gBoost g){
 
-        cout << "Dijkstra funciona" << endl;
+        //cout << "Dijkstra funciona" << endl;
+
+        auto start = high_resolution_clock::now();
+
+
+
+        auto stop = high_resolution_clock::now();
 
         return g;
     }
