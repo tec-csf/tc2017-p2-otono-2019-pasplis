@@ -42,8 +42,8 @@ typedef property_map<gBoost, edge_weight_t>::type EdgeWeights;
 typedef boost::graph_traits<gBoost>::vertex_descriptor vertex_Boost;
 typedef graph_traits<gBoost>::edge_descriptor EDGE;
 typedef boost::exterior_vertex_property<gBoost, int> DistanceProperty;
-typedef DistanceProperty::matrix_type DistanceMatrix;
-typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
+typedef DistanceProperty::matrix_type DistanciaMatrices;
+typedef DistanceProperty::matrix_map_type MapaMatrices;
 
 class GrafoGral{ 
 
@@ -302,7 +302,7 @@ class GrafoGral{
         cout << "\n";
 
         return g;
-    }
+    };
 
     gBoost Dijkstra(gBoost g){
 
@@ -338,16 +338,48 @@ class GrafoGral{
         cout << "Le tomo " << durationSeg.count() << " segundos\n";
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
-
-        return g;
-    }
+    };
 
     gBoost FW(gBoost g){
 
-        cout << "Floyd-Warshall funciona" << endl;
+        //cout << "Floyd-Warshall funciona" << endl;
+
+        auto start = high_resolution_clock::now();
+
+        DistanciaMatrices dist(num_vertices(g));
+        MapaMatrices distanciaMat(dist, g);
+
+        property_map<gBoost, edge_weight_t>::type peso = get(edge_weight, g);
+
+        floyd_warshall_all_pairs_shortest_paths(g, distanciaMat, boost::weight_map(peso));
+
+        auto stop = high_resolution_clock::now();
+
+        for(int x = 1; x < num_vertices(g); x++){
+            for (int y = 1; y < num_vertices(g); y++)
+            {
+                cout << "Vertice " << x << " a " << y << endl;
+                if (dist[x][y] == std::numeric_limits<int>::max())
+                {
+                    cout << "Fin" << endl;
+                }else{
+                    cout << dist[x][y] << "\n" << endl;
+                }
+                
+            }
+            
+        }
+
+        auto durationSeg = duration_cast<seconds>(stop - start);
+        auto durationMilli = duration_cast<milliseconds>(stop - start);
+        auto durationMicro = duration_cast<microseconds>(stop - start);
+
+        cout << "Le tomo " << durationSeg.count() << " segundos\n";
+        cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
+        cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
 
         return g;
-    }
+    }//FIN FLOYD-WARSHALL
 
 };
 
