@@ -338,6 +338,9 @@ class GrafoGral{
         cout << "Le tomo " << durationSeg.count() << " segundos\n";
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
+
+        return g;
+
     };
 
     gBoost FW(gBoost g){
