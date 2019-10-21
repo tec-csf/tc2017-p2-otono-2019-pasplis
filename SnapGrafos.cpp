@@ -81,7 +81,7 @@ vector<pair<int,int> > GetChildID(int ID_Nodo){
 }
 
 
-//.................Algoritmos DFS,BFS,Dijkstra y FloydWarshall....................//
+//.................Algoritmos DFS,BFS,Dijkstra, Prim y FloydWarshall....................//
 
 
 void DFS(bool Visitado[], int ID_now){
