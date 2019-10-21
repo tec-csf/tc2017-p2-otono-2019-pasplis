@@ -206,6 +206,8 @@ class GrafoGral{
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
 
+        cout << "\nEste es un algoritmo de tipo Ávido\nSu complejidad es de O(|V|+|E|)" << endl;
+
         cout << "\n";
 
         return g;
@@ -231,6 +233,8 @@ class GrafoGral{
         cout << "Le tomo " << durationSeg.count() << " segundos\n";
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
+
+        cout << "\nEste es un algoritmo de tipo Ávido\nSu complejidad es de O(|V|+|E|)" << endl;
 
         cout << "\n";
 
@@ -270,6 +274,8 @@ class GrafoGral{
 
         cout << "\n";
 
+        cout << "\nEste es un algoritmo de tipo Ávido\nSu complejidad es de O(|V|^2)" << endl;
+
         return g;
     }
 
@@ -300,6 +306,8 @@ class GrafoGral{
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n";
 
         cout << "\n";
+
+        cout << "\nEste es un algoritmo de tipo Ávido\nSu complejidad es de O(|E|log|V|)" << endl;
 
         return g;
     };
@@ -338,6 +346,10 @@ class GrafoGral{
         cout << "Le tomo " << durationSeg.count() << " segundos\n";
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
+
+        cout << "\n";
+
+        cout << "\nEste es un algoritmo de tipo Ávido\nSu complejidad es de O(|V|^2)" << endl;
 
         return g;
 
@@ -380,6 +392,10 @@ class GrafoGral{
         cout << "Le tomo " << durationSeg.count() << " segundos\n";
         cout << "Le tomo " << durationMilli.count() << " milisegundos\n";
         cout << "Le tomo " << durationMicro.count() << " microsegundos\n" << endl;
+
+        cout << "\n";
+
+        cout << "\nEste es un algoritmo de tipo Dinámico\nSu complejidad es de O(|V|^3)" << endl;
 
         return g;
     }//FIN FLOYD-WARSHALL
